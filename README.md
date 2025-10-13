@@ -1,5 +1,4 @@
 # zama
-zalupa konskaya
 1
 2
 3
@@ -12,3 +11,4 @@ zalupa konskaya
 10
 11
 12
+13
