@@ -1,0 +1,33 @@
+name: Extra Daily Commits
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 18 * * *"
+    - cron: "59 23 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update activity log
+        run: |
+          mkdir -p logs
+          echo "Auto update $(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> logs/activity-log.md
+
+      - name: Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto activity update [skip ci]"
+          file_pattern: logs/activity-log.md
+          branch: main
